@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Birthday, Manjao 🎂💖</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#FFF7FB;--card:#ffffff;--accent:#ff6b9a;--muted:#8b8b8b}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; background:linear-gradient(180deg,#fff 0%, #fff7fb 100%);display:flex;align-items:center;justify-content:center;padding:24px}
+    .wrap{width:100%;max-width:420px}
+    .card{background:var(--card);border-radius:20px;padding:20px;box-shadow:0 8px 30px rgba(255,107,154,0.12);overflow:hidden}
+    header{display:flex;gap:12px;align-items:center}
+    .avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#ffb3ca);display:flex;align-items:center;justify-content:center;color:white;font-family:Pacifico;font-size:28px;box-shadow:0 6px 18px rgba(255,107,154,0.18)}
+    h1{margin:0;font-family:Pacifico;font-size:22px;color:#3a0b17}
+    p.lead{margin:8px 0 14px;color:var(--muted);font-size:14px}
+
+    .gift{background:linear-gradient(180deg,#fff0f6,#fff);border-radius:16px;padding:14px;text-align:center}
+    .big{font-size:28px;margin:6px 0}
+    .heart{font-size:24px;opacity:0.95}
+
+    .btns{display:flex;gap:10px;margin-top:14px}
+    .btn{flex:1;padding:12px;border-radius:12px;border:0;font-weight:600;cursor:pointer}
+    .btn-primary{background:var(--accent);color:white}
+    .btn-ghost{background:transparent;border:1px solid #ffd5e2;color:#b33a58}
+
+    .note{font-size:13px;color:#b23c5a;margin-top:12px;text-align:center}
+
+    /* confetti canvas full-bleed */
+    #confetti{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:9}
+
+    /* responsive tweaks */
+    @media (max-width:420px){.card{padding:18px;border-radius:16px}}
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="avatar">M💖</div>
+        <div>
+          <h1>Happy Birthday, Manjao 🎉</h1>
+          <p class="lead">I know I'm late — I'm so sorry. Please forgive me, meri jaan. ❤️</p>
+        </div>
+      </header>
+
+      <div style="height:12px"></div>
+
+      <div class="gift" id="messageCard">
+        <div class="big">Wishing you a day full of giggles, cake, and cozy hugs.</div>
+        <div class="heart">You make my world softer and my heart louder 💓</div>
+
+        <div class="btns">
+          <button class="btn btn-primary" id="revealBtn">Open your surprise</button>
+          <button class="btn btn-ghost" id="sorryBtn">Say sorry properly</button>
+        </div>
+
+        <div class="note">Tap "Open your surprise" — I made this just for you.</div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div style="text-align:center;color:#b23c5a;font-size:13px">Love, <strong>Huzaifa</strong> — always <span style="font-family:Pacifico">manjao</span>.</div>
+    </div>
+  </div>
+
+  <script>
+    // small confetti animation
+    (function(){
+      const canvas = document.getElementById('confetti');
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = innerWidth;
+      let H = canvas.height = innerHeight;
+      const pieces = [];
+      const colors = ['#ff6b9a','#ffd5e2','#ffb3ca','#ff9bb5','#ffc9e3'];
+      function rand(min,max){return Math.random()*(max-min)+min}
+      function setup(){for(let i=0;i<120;i++){pieces.push({x:rand(0,W),y:rand(-H,0),r:rand(6,12),d:rand(2,6),c:colors[i%colors.length],rot:rand(0,6.28)})}}
+      function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
+      addEventListener('resize',resize);
+      function draw(){ctx.clearRect(0,0,W,H);for(let p of pieces){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.c;ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6);ctx.restore();p.y+=p.d; p.x+=Math.sin(p.rot)*0.6; p.rot+=0.05; if(p.y>H+20){p.y=-10;p.x=rand(0,W)}}requestAnimationFrame(draw)}
+      setup(); draw();
+    })();
+
+    // interactions
+    const revealBtn = document.getElementById('revealBtn');
+    const sorryBtn = document.getElementById('sorryBtn');
+    revealBtn.addEventListener('click', ()=>{
+      revealBtn.disabled = true;
+      revealBtn.textContent = '🎁 Opening...';
+      setTimeout(()=>{
+        alert('Happy Birthday, my love! I
